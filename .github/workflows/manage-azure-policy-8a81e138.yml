@@ -1,0 +1,146 @@
+name: manage-azure-policy-8a81e138
+on:
+  workflow_dispatch:
+    inputs:
+      remarks:
+        description: 'Reason for triggering the workflow run'
+        required: false
+        default: 'Updating Azure Policies'
+
+
+## Uncomment the following if you wish to automatically trigger workflow run with every commit
+#
+#  push:
+#    paths:
+#      - 'manish/policies/Saved-queries_in_Azure_Monitor_should_be_saved_in_customer_storage_account_for_logs_encryption_fa298e57-9444-42ba-bf04-86e8470e32c7/**'
+#      - 'manish/policies/Monitor_third-party_provider_compliance_f8ded0c6-a668-9371-6bb6-661d58787198/**'
+#      - 'manish/policies/Linux_Arc-enabled_machines_should_have_Azure_Monitor_Agent_installed_f17d891d-ff20-46f2-bad3-9e0a5403a4d3/**'
+#      - 'manish/policies/Monitor_privileged_role_assignment_ed87d27a-9abf-7c71-714c-61d881889da4/**'
+#      - 'manish/policies/Windows_Arc-enabled_machines_should_have_Azure_Monitor_Agent_installed_ec621e21-8b48-403d-a549-fc9023d4747f/**'
+#      - 'manish/policies/Azure_Monitor_Logs_clusters_should_be_created_with_infrastructure-encryption_enabled_(double_encryption)_ea0dfaed-95fb-448c-934e-d6e713ce393d/**'
+#      - 'manish/policies/Configure_Azure_Monitor_Private_Link_Scopes_with_private_endpoints_e8185402-357b-4768-8058-f620bc0ae6b5/**'
+#      - 'manish/policies/Authorize,_monitor,_and_control_voip_e4e1f896-8a93-1151-43c7-0ad23b081ee2/**'
+#      - 'manish/policies/Obtain_legal_opinion_for_monitoring_system_activities_d9af7f88-686a-5a8b-704b-eafdab278977/**'
+#      - 'manish/policies/_Preview_Deploy_Dependency_agent_for_Linux_virtual_machines_with_Azure_Monitoring_Agent_settings_d55b81e1-984f-4a96-acab-fae204e3ca7f/**'
+#      - 'manish/policies/Azure_Monitor_Logs_for_Application_Insights_should_be_linked_to_a_Log_Analytics_workspace_d550e854-df1a-4de9-bf44-cd894b39a95e/**'
+#      - 'manish/policies/Configure_Windows_virtual_machines_to_run_Azure_Monitor_Agent_using_system-assigned_managed_identity_ca817e41-e85a-4783-bc7f-dc532d36235e/**'
+#      - 'manish/policies/Obtain_continuous_monitoring_plan_for_security_controls_ca6d7878-3189-1833-4620-6c7254ed1607/**'
+#      - 'manish/policies/Review_security_testing,_training,_and_monitoring_plans_c3b3cc61-9c70-5d78-7f12-1aefcc477db7/**'
+#      - 'manish/policies/_Preview_Configure_machines_to_create_the_Microsoft_Defender_for_Cloud_user-defined_pipeline_using_Azure_Monitor_Agent_c15c5978-ab6e-4599-a1c3-90a7918f5371/**'
+#      - 'manish/policies/Windows_virtual_machines_should_have_Azure_Monitor_Agent_installed_c02729e5-e5e7-4458-97fa-2b5ad0661f28/**'
+#      - 'manish/policies/Configure_Azure_Monitor_Private_Link_Scope_to_block_access_to_non_private_link_resources_bec5db8e-c4e3-40f9-a545-e0bd00065c82/**'
+#      - 'manish/policies/Monitor_missing_Endpoint_Protection_in_Azure_Security_Center_af6cd1bd-1635-48cb-bde7-5b15693900b9/**'
+#      - 'manish/policies/_Preview_Deploy_Dependency_agent_to_be_enabled_on_Windows_virtual_machine_scale_sets_with_Azure_Monitoring_Agent_settings_af0082fd-fa58-4349-b916-b0e47abb0935/**'
+#      - 'manish/policies/Configure_Linux_virtual_machines_to_run_Azure_Monitor_Agent_with_user-assigned_managed_identity-based_authentication_ae8a10e6-19d6-44a3-a02d-a2bdfc707742/**'
+#      - 'manish/policies/_Preview_Configure_Arc_machines_to_create_the_Microsoft_Defender_for_Cloud_user-defined_pipeline_using_Azure_Monitor_Agent_aba46665-c3a7-4319-ace1-a0282deebac2/**'
+#      - 'manish/policies/Log_Analytics_agent_should_be_installed_on_your_virtual_machine_for_Azure_Security_Center_monitoring_a4fe33eb-e377-4efb-ab31-0784311bc499/**'
+#      - 'manish/policies/Azure_Monitor_Private_Link_Scope_should_block_access_to_non_private_link_resources_a499fed8-bcc8-4195-b154-641f14743757/**'
+#      - 'manish/policies/Configure_Linux_virtual_machines_to_run_Azure_Monitor_Agent_with_system-assigned_managed_identity-based_authentication_a4034bc6-ae50-406d-bf76-50f4ee5a7811/**'
+#      - 'manish/policies/Log_Analytics_agent_should_be_installed_on_your_virtual_machine_scale_sets_for_Azure_Security_Center_monitoring_a3a6ea0c-e018-4933-9ef0-5aaa1501449b/**'
+#      - 'manish/policies/Configure_Windows_virtual_machine_scale_sets_to_run_Azure_Monitor_Agent_with_user-assigned_managed_identity-based_authentication_98569e20-8f32-4f31-bf34-0e91590ae9d3/**'
+#      - 'manish/policies/Configure_Windows_Arc-enabled_machines_to_run_Azure_Monitor_Agent_94f686d6-9a24-4e19-91f1-de937dc171a4/**'
+#      - 'manish/policies/Configure_Log_Analytics_workspace_and_automation_account_to_centralize_logs_and_monitoring_8e3e61b3-0b32-22d5-4edf-55f87fdb5955/**'
+#      - 'manish/policies/_Preview_Configure_virtual_machines_to_create_the_default_Microsoft_Defender_for_Cloud_pipeline_using_Azure_Monitor_Agent_8b5ad9ab-3d44-4a6e-9ac3-75b04ea5fd28/**'
+#      - 'manish/policies/_Preview_Deploy_Dependency_agent_to_be_enabled_on_Windows_virtual_machines_with_Azure_Monitoring_Agent_settings_89ca9cc7-25cd-4d53-97ba-445ca7a1f222/**'
+#      - 'manish/policies/_Preview_Configure_Dependency_agent_on_Azure_Arc_enabled_Windows_servers_with_Azure_Monitoring_Agent_settings_84cfed75-dfd4-421b-93df-725b479d356a/**'
+#      - 'manish/policies/Configure_Linux_Arc-enabled_machines_to_run_Azure_Monitor_Agent_845857af-0333-4c5d-bbbc-6076697da122/**'
+#      - 'manish/policies/Monitor_security_and_privacy_training_completion_82bd024a-5c99-05d6-96ff-01f539676a1a/**'
+#      - 'manish/policies/Provide_monitoring_information_as_needed_7fc1f0da-0050-19bb-3d75-81ae15940df6/**'
+#      - 'manish/policies/Monitor_account_activity_7b28ba4f-0a87-46ac-62e1-46b7c09202a8/**'
+#      - 'manish/policies/Analyse_data_obtained_from_continuous_monitoring_6a379d74-903b-244a-4c44-838728bea6b0/**'
+#      - 'manish/policies/Configure_Windows_virtual_machines_to_run_Azure_Monitor_Agent_with_user-assigned_managed_identity-based_authentication_637125fd-7c39-4b94-bb0a-d331faf333a9/**'
+#      - 'manish/policies/Firewall_Policy_Premium_should_enable_all_IDPS_signature_rules_to_monitor_all_inbound_and_outbound_traffic_flows_610b6183-5f00-4d68-86d2-4ab4cb3a67a5/**'
+#      - 'manish/policies/Configure_Linux_virtual_machine_scale_sets_to_run_Azure_Monitor_Agent_with_user-assigned_managed_identity-based_authentication_59c3d93f-900b-4827-a8bd-562e7b956e7c/**'
+#      - 'manish/policies/Configure_Linux_virtual_machine_scale_sets_to_run_Azure_Monitor_Agent_with_system-assigned_managed_identity-based_authentication_56a3e4f8-649b-4fac-887e-5564d11e8d3a/**'
+#      - 'manish/policies/Configure_Windows_virtual_machine_scale_sets_to_run_Azure_Monitor_Agent_using_system-assigned_managed_identity_4efbd9d8-6bc6-45f6-9be2-7fe9dd5d89ff/**'
+#      - 'manish/policies/Monitor_access_across_the_organization_48c816c5-2190-61fc-8806-25d6f3df162f/**'
+#      - 'manish/policies/Configure_Azure_Monitor_Private_Link_Scope_to_use_private_DNS_zones_437914ee-c176-4fff-8986-7e05eb971365/**'
+#      - 'manish/policies/Azure_Monitor_solution_Security_and_Audit_must_be_deployed_3e596b57-105f-48a6-be97-03e9243bad6e/**'
+#      - 'manish/policies/Employ_independent_assessors_for_continuous_monitoring_3baee3fd-30f5-882c-018c-cc78703a0106/**'
+#      - 'manish/policies/_Preview_Configure_Arc_machines_to_create_the_default_Microsoft_Defender_for_Cloud_pipeline_using_Azure_Monitor_Agent_3b1a8e0a-b2e1-48be-9365-28be2fbef550/**'
+#      - 'manish/policies/Windows_virtual_machine_scale_sets_should_have_Azure_Monitor_Agent_installed_3672e6f7-a74d-4763-b138-fcf332042f8f/**'
+#      - 'manish/policies/Govern_and_monitor_audit_processing_activities_333b4ada-4a02-0648-3d4d-d812974f1bb2/**'
+#      - 'manish/policies/Linux_virtual_machine_scale_sets_should_have_Azure_Monitor_Agent_installed_32ade945-311e-4249-b8a4-a549924234d7/**'
+#      - 'manish/policies/_Preview_Deploy_Dependency_agent_for_Linux_virtual_machine_scale_sets_with_Azure_Monitoring_Agent_settings_2fea0c12-e7d4-4e03-b7bf-c34b2b8d787d/**'
+#      - 'manish/policies/Authorize,_monitor,_and_control_usage_of_mobile_code_technologies_291f20d4-8d93-1d73-89f3-6ce28b825563/**'
+#      - 'manish/policies/Implement_security_testing,_training,_and_monitoring_plans_21832235-7a07-61f4-530d-d596f76e5b95/**'
+#      - 'manish/policies/Azure_Monitor_Logs_clusters_should_be_encrypted_with_customer-managed_key_1f68a601-6e6d-4e42-babf-3f643a047ea2/**'
+#      - 'manish/policies/Linux_virtual_machines_should_have_Azure_Monitor_Agent_installed_1afdc4b6-581a-45fb-b630-f1e6051e3e7a/**'
+#      - 'manish/policies/Azure_Monitor_log_profile_should_collect_logs_for_categories_write,_delete,_and_action_1a4e592a-6a6e-44a5-9814-e36264ca96e7/**'
+#      - 'manish/policies/_Preview_Configure_system-assigned_managed_identity_to_enable_Azure_Monitor_assignments_on_VMs_17b3de92-f710-4cf4-aa55-0e7859f1ed7b/**'
+#      - 'manish/policies/Azure_Monitor_Private_Link_Scope_should_use_private_link_0fc55270-f8bf-4feb-b7b8-5e7e7eacc6a6/**'
+#      - 'manish/policies/_Preview_Configure_Dependency_agent_on_Azure_Arc_enabled_Linux_servers_with_Azure_Monitoring_Agent_settings_08a4470f-b26d-428d-97f4-7e3e9c92b366/**'
+#      - .github/workflows/manage-azure-policy-8a81e138.yml
+jobs:
+  apply-azure-policy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS_8a81e138}}
+        allow-no-subscriptions: true
+    - name: Create or Update Azure Policies
+      uses: azure/manage-azure-policy@v0
+      with:
+        paths: |
+          manish/policies/Saved-queries_in_Azure_Monitor_should_be_saved_in_customer_storage_account_for_logs_encryption_fa298e57-9444-42ba-bf04-86e8470e32c7/**
+          manish/policies/Monitor_third-party_provider_compliance_f8ded0c6-a668-9371-6bb6-661d58787198/**
+          manish/policies/Linux_Arc-enabled_machines_should_have_Azure_Monitor_Agent_installed_f17d891d-ff20-46f2-bad3-9e0a5403a4d3/**
+          manish/policies/Monitor_privileged_role_assignment_ed87d27a-9abf-7c71-714c-61d881889da4/**
+          manish/policies/Windows_Arc-enabled_machines_should_have_Azure_Monitor_Agent_installed_ec621e21-8b48-403d-a549-fc9023d4747f/**
+          manish/policies/Azure_Monitor_Logs_clusters_should_be_created_with_infrastructure-encryption_enabled_(double_encryption)_ea0dfaed-95fb-448c-934e-d6e713ce393d/**
+          manish/policies/Configure_Azure_Monitor_Private_Link_Scopes_with_private_endpoints_e8185402-357b-4768-8058-f620bc0ae6b5/**
+          manish/policies/Authorize,_monitor,_and_control_voip_e4e1f896-8a93-1151-43c7-0ad23b081ee2/**
+          manish/policies/Obtain_legal_opinion_for_monitoring_system_activities_d9af7f88-686a-5a8b-704b-eafdab278977/**
+          manish/policies/_Preview_Deploy_Dependency_agent_for_Linux_virtual_machines_with_Azure_Monitoring_Agent_settings_d55b81e1-984f-4a96-acab-fae204e3ca7f/**
+          manish/policies/Azure_Monitor_Logs_for_Application_Insights_should_be_linked_to_a_Log_Analytics_workspace_d550e854-df1a-4de9-bf44-cd894b39a95e/**
+          manish/policies/Configure_Windows_virtual_machines_to_run_Azure_Monitor_Agent_using_system-assigned_managed_identity_ca817e41-e85a-4783-bc7f-dc532d36235e/**
+          manish/policies/Obtain_continuous_monitoring_plan_for_security_controls_ca6d7878-3189-1833-4620-6c7254ed1607/**
+          manish/policies/Review_security_testing,_training,_and_monitoring_plans_c3b3cc61-9c70-5d78-7f12-1aefcc477db7/**
+          manish/policies/_Preview_Configure_machines_to_create_the_Microsoft_Defender_for_Cloud_user-defined_pipeline_using_Azure_Monitor_Agent_c15c5978-ab6e-4599-a1c3-90a7918f5371/**
+          manish/policies/Windows_virtual_machines_should_have_Azure_Monitor_Agent_installed_c02729e5-e5e7-4458-97fa-2b5ad0661f28/**
+          manish/policies/Configure_Azure_Monitor_Private_Link_Scope_to_block_access_to_non_private_link_resources_bec5db8e-c4e3-40f9-a545-e0bd00065c82/**
+          manish/policies/Monitor_missing_Endpoint_Protection_in_Azure_Security_Center_af6cd1bd-1635-48cb-bde7-5b15693900b9/**
+          manish/policies/_Preview_Deploy_Dependency_agent_to_be_enabled_on_Windows_virtual_machine_scale_sets_with_Azure_Monitoring_Agent_settings_af0082fd-fa58-4349-b916-b0e47abb0935/**
+          manish/policies/Configure_Linux_virtual_machines_to_run_Azure_Monitor_Agent_with_user-assigned_managed_identity-based_authentication_ae8a10e6-19d6-44a3-a02d-a2bdfc707742/**
+          manish/policies/_Preview_Configure_Arc_machines_to_create_the_Microsoft_Defender_for_Cloud_user-defined_pipeline_using_Azure_Monitor_Agent_aba46665-c3a7-4319-ace1-a0282deebac2/**
+          manish/policies/Log_Analytics_agent_should_be_installed_on_your_virtual_machine_for_Azure_Security_Center_monitoring_a4fe33eb-e377-4efb-ab31-0784311bc499/**
+          manish/policies/Azure_Monitor_Private_Link_Scope_should_block_access_to_non_private_link_resources_a499fed8-bcc8-4195-b154-641f14743757/**
+          manish/policies/Configure_Linux_virtual_machines_to_run_Azure_Monitor_Agent_with_system-assigned_managed_identity-based_authentication_a4034bc6-ae50-406d-bf76-50f4ee5a7811/**
+          manish/policies/Log_Analytics_agent_should_be_installed_on_your_virtual_machine_scale_sets_for_Azure_Security_Center_monitoring_a3a6ea0c-e018-4933-9ef0-5aaa1501449b/**
+          manish/policies/Configure_Windows_virtual_machine_scale_sets_to_run_Azure_Monitor_Agent_with_user-assigned_managed_identity-based_authentication_98569e20-8f32-4f31-bf34-0e91590ae9d3/**
+          manish/policies/Configure_Windows_Arc-enabled_machines_to_run_Azure_Monitor_Agent_94f686d6-9a24-4e19-91f1-de937dc171a4/**
+          manish/policies/Configure_Log_Analytics_workspace_and_automation_account_to_centralize_logs_and_monitoring_8e3e61b3-0b32-22d5-4edf-55f87fdb5955/**
+          manish/policies/_Preview_Configure_virtual_machines_to_create_the_default_Microsoft_Defender_for_Cloud_pipeline_using_Azure_Monitor_Agent_8b5ad9ab-3d44-4a6e-9ac3-75b04ea5fd28/**
+          manish/policies/_Preview_Deploy_Dependency_agent_to_be_enabled_on_Windows_virtual_machines_with_Azure_Monitoring_Agent_settings_89ca9cc7-25cd-4d53-97ba-445ca7a1f222/**
+          manish/policies/_Preview_Configure_Dependency_agent_on_Azure_Arc_enabled_Windows_servers_with_Azure_Monitoring_Agent_settings_84cfed75-dfd4-421b-93df-725b479d356a/**
+          manish/policies/Configure_Linux_Arc-enabled_machines_to_run_Azure_Monitor_Agent_845857af-0333-4c5d-bbbc-6076697da122/**
+          manish/policies/Monitor_security_and_privacy_training_completion_82bd024a-5c99-05d6-96ff-01f539676a1a/**
+          manish/policies/Provide_monitoring_information_as_needed_7fc1f0da-0050-19bb-3d75-81ae15940df6/**
+          manish/policies/Monitor_account_activity_7b28ba4f-0a87-46ac-62e1-46b7c09202a8/**
+          manish/policies/Analyse_data_obtained_from_continuous_monitoring_6a379d74-903b-244a-4c44-838728bea6b0/**
+          manish/policies/Configure_Windows_virtual_machines_to_run_Azure_Monitor_Agent_with_user-assigned_managed_identity-based_authentication_637125fd-7c39-4b94-bb0a-d331faf333a9/**
+          manish/policies/Firewall_Policy_Premium_should_enable_all_IDPS_signature_rules_to_monitor_all_inbound_and_outbound_traffic_flows_610b6183-5f00-4d68-86d2-4ab4cb3a67a5/**
+          manish/policies/Configure_Linux_virtual_machine_scale_sets_to_run_Azure_Monitor_Agent_with_user-assigned_managed_identity-based_authentication_59c3d93f-900b-4827-a8bd-562e7b956e7c/**
+          manish/policies/Configure_Linux_virtual_machine_scale_sets_to_run_Azure_Monitor_Agent_with_system-assigned_managed_identity-based_authentication_56a3e4f8-649b-4fac-887e-5564d11e8d3a/**
+          manish/policies/Configure_Windows_virtual_machine_scale_sets_to_run_Azure_Monitor_Agent_using_system-assigned_managed_identity_4efbd9d8-6bc6-45f6-9be2-7fe9dd5d89ff/**
+          manish/policies/Monitor_access_across_the_organization_48c816c5-2190-61fc-8806-25d6f3df162f/**
+          manish/policies/Configure_Azure_Monitor_Private_Link_Scope_to_use_private_DNS_zones_437914ee-c176-4fff-8986-7e05eb971365/**
+          manish/policies/Azure_Monitor_solution_Security_and_Audit_must_be_deployed_3e596b57-105f-48a6-be97-03e9243bad6e/**
+          manish/policies/Employ_independent_assessors_for_continuous_monitoring_3baee3fd-30f5-882c-018c-cc78703a0106/**
+          manish/policies/_Preview_Configure_Arc_machines_to_create_the_default_Microsoft_Defender_for_Cloud_pipeline_using_Azure_Monitor_Agent_3b1a8e0a-b2e1-48be-9365-28be2fbef550/**
+          manish/policies/Windows_virtual_machine_scale_sets_should_have_Azure_Monitor_Agent_installed_3672e6f7-a74d-4763-b138-fcf332042f8f/**
+          manish/policies/Govern_and_monitor_audit_processing_activities_333b4ada-4a02-0648-3d4d-d812974f1bb2/**
+          manish/policies/Linux_virtual_machine_scale_sets_should_have_Azure_Monitor_Agent_installed_32ade945-311e-4249-b8a4-a549924234d7/**
+          manish/policies/_Preview_Deploy_Dependency_agent_for_Linux_virtual_machine_scale_sets_with_Azure_Monitoring_Agent_settings_2fea0c12-e7d4-4e03-b7bf-c34b2b8d787d/**
+          manish/policies/Authorize,_monitor,_and_control_usage_of_mobile_code_technologies_291f20d4-8d93-1d73-89f3-6ce28b825563/**
+          manish/policies/Implement_security_testing,_training,_and_monitoring_plans_21832235-7a07-61f4-530d-d596f76e5b95/**
+          manish/policies/Azure_Monitor_Logs_clusters_should_be_encrypted_with_customer-managed_key_1f68a601-6e6d-4e42-babf-3f643a047ea2/**
+          manish/policies/Linux_virtual_machines_should_have_Azure_Monitor_Agent_installed_1afdc4b6-581a-45fb-b630-f1e6051e3e7a/**
+          manish/policies/Azure_Monitor_log_profile_should_collect_logs_for_categories_write,_delete,_and_action_1a4e592a-6a6e-44a5-9814-e36264ca96e7/**
+          manish/policies/_Preview_Configure_system-assigned_managed_identity_to_enable_Azure_Monitor_assignments_on_VMs_17b3de92-f710-4cf4-aa55-0e7859f1ed7b/**
+          manish/policies/Azure_Monitor_Private_Link_Scope_should_use_private_link_0fc55270-f8bf-4feb-b7b8-5e7e7eacc6a6/**
+          manish/policies/_Preview_Configure_Dependency_agent_on_Azure_Arc_enabled_Linux_servers_with_Azure_Monitoring_Agent_settings_08a4470f-b26d-428d-97f4-7e3e9c92b366/**
